@@ -37,7 +37,7 @@ div.practice-thumbnail { display:grid; place-items:center; font-weight:700; }
 .lsp-page .reference-card video,.lsp-page .reference-card canvas { transform:none; }
 .lsp-page .learner-card .motion-input video,.lsp-page .learner-card .motion-input canvas { transform:scaleX(-1); }
 .lsp-page .learner-card .motion-input video { object-fit:contain; }
-.page-detalle:not(.show-landmarks) [data-motion-overlay],.page-detalle:not(.show-landmarks) [data-reference-overlay] { visibility:hidden; }
+.page-detalle:not(.show-landmarks) [data-motion-overlay] { visibility:hidden; }
 .lsp-page .reference-playback-actions { flex-wrap:wrap; }
 .lsp-page .learner-card .motion-controls { padding:12px 0 0; border:0; background:transparent; display:flex; gap:10px; flex-wrap:wrap; }
 .lsp-page .learner-card .motion-controls>button { min-height:44px; padding:10px 16px; font-size:var(--font-size-button); border-radius:var(--radius-control); }
@@ -116,3 +116,17 @@ div.practice-thumbnail { display:grid; place-items:center; font-weight:700; }
 .lsp-page .home-activity { background:transparent; border-radius:0; padding:18px 0; border-top:1px solid var(--color-border); }
 .lsp-page .advanced-options { border-top:1px solid var(--color-border); padding-top:16px; }
 @media(max-width:900px) { .lsp-page .practice-pipeline { gap:32px; } }
+
+/* Keep the shell stable while page content scrolls within the rounded panel. */
+.lsp-page:not(.access-page) { height:100dvh; min-height:0; overflow:hidden; }
+.lsp-page:not(.access-page) .page-main { height:calc(100dvh - var(--lsp-topbar-height) - 40px); min-height:0; overflow:auto; overscroll-behavior:contain; scrollbar-gutter:stable; }
+.lsp-page .practice-page-main>* { flex-shrink:0; }
+.lsp-page .site-footer { height:40px; overflow:auto; padding:8px; }
+.lsp-sidebar { overflow-y:auto; }
+.reference-views { display:flex; gap:6px; margin-bottom:12px; }
+.reference-views button { min-height:44px; padding:8px 14px; border:0; border-radius:var(--radius-control); background:transparent; color:var(--color-text-muted); font:inherit; cursor:pointer; }
+.reference-views button[aria-pressed="true"] { background:var(--color-navigation-active); color:var(--color-primary); font-weight:600; }
+.page-detalle[data-reference-view="video"] [data-reference-overlay] { visibility:hidden; }
+.page-detalle[data-reference-view="landmarks"] [data-reference-video] { visibility:hidden; }
+.page-detalle[data-reference-view="landmarks"] [data-reference-overlay],.page-detalle[data-reference-view="both"] [data-reference-overlay] { visibility:visible; }
+@media(min-width:901px) { .page-detalle .learner-card>.section-heading { margin-bottom:70px; } }

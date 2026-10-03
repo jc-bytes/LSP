@@ -72,6 +72,17 @@
     if (homeActions && welcome) welcome.append(homeActions);
     const practice = document.querySelector('.page-detalle');
     if (practice) {
+      const reference = practice.querySelector('.reference-card');
+      if (reference) {
+        const views = document.createElement('div'); views.className = 'reference-views'; views.setAttribute('role', 'group'); views.setAttribute('aria-label', 'Vista de la referencia');
+        practice.dataset.referenceView = 'video';
+        for (const [value, label] of [['video','Video'],['landmarks','Landmarks'],['both','Ambos']]) {
+          const button = document.createElement('button'); button.type = 'button'; button.textContent = label; button.setAttribute('aria-pressed', String(value === 'video'));
+          button.addEventListener('click', () => { practice.dataset.referenceView = value; views.querySelectorAll('button').forEach(item => item.setAttribute('aria-pressed', String(item === button))); });
+          views.append(button);
+        }
+        reference.querySelector('.section-heading').after(views);
+      }
       const score = practice.querySelector('.score-section');
       const save = practice.querySelector('.save-attempt-card');
       if (score) score.hidden = true;
