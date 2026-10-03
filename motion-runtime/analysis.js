@@ -2407,13 +2407,14 @@ const compareMotionStages = function compareMotionStages(reference, learner, sta
 			};
 			return captured;
 		};
+		const reviewReference = root.closest(".page-detalle")?.querySelector("[data-reference-video]");
 		const replay = async (range = [0, 1]) => {
 			if (!overlay || !recordedLandmarkFrames.length || !replayButton) return;
 			if (activity.mode === "analyze" && analyzeReviewRunning) {
 				analyzeReviewPaused = !analyzeReviewPaused;
 				replayButton.textContent = analyzeReviewPaused ? "Continuar revisión" : "Pausar revisión";
-				if (analyzeReviewPaused) video.pause();
-				else await video.play().catch(() => undefined);
+				if (analyzeReviewPaused) { video.pause(); reviewReference?.pause(); }
+				else await Promise.all([video.play().catch(() => undefined), reviewReference && !reviewReference.ended ? reviewReference.play().catch(() => undefined) : undefined]);
 				status.textContent = analyzeReviewPaused ? "Revisión pausada." : "Reproduciendo el análisis…";
 				return;
 			};
@@ -2438,7 +2439,9 @@ const compareMotionStages = function compareMotionStages(reference, learner, sta
 				video.hidden = false;
 				if (video.readyState < 1) await waitFor(video, "loadedmetadata");
 				await seek(video, (Number.isFinite(video.duration) ? video.duration : 0) * range[0]);
-				reviewVideoPlaying = await video.play().then(() => true).catch(() => false);
+				if (reviewReference && !reviewReference.hidden && reviewReference.readyState >= 1) reviewReference.currentTime = 0;
+				const [learnerPlaying] = await Promise.all([video.play().then(() => true).catch(() => false), reviewReference && !reviewReference.hidden ? reviewReference.play().catch(() => undefined) : undefined]);
+				reviewVideoPlaying = learnerPlaying;
 			};
 			const drawReplayFrame = (frame) => drawHolisticOverlay(overlay, frame.width, frame.height, frame, activityFeatures(activity), inputOverlayFit());
 			if (activity.mode === "analyze" && reviewVideoPlaying && Number.isFinite(video.duration)) {
@@ -2484,6 +2487,7 @@ const compareMotionStages = function compareMotionStages(reference, learner, sta
 				}
 			};
 			video.pause();
+			reviewReference?.pause();
 			button.disabled = false;
 			replayButton.disabled = false;
 			analyzeReviewRunning = false;
