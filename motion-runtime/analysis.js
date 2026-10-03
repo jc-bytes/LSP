@@ -1348,7 +1348,7 @@ const compareMotionStages = function compareMotionStages(reference, learner, sta
 		if (activity.mode !== "analyze" && (!results || !overall || !scores || !feedback)) continue;
 		if (activity.mode === "compare" && resultsDock && results) resultsDock.append(results);
 		const showResults = activity.presentation.showResults || activity.mode === "compare" && Boolean(resultsDock);
-		button.textContent = activity.mode === "reference" ? "Iniciar grabación" : activity.mode === "analyze" ? "Iniciar captura" : "Iniciar intento";
+		button.textContent = root.closest(".page-detalle") ? "Grabar mi intento" : activity.mode === "reference" ? "Iniciar grabación" : activity.mode === "analyze" ? "Iniciar captura" : "Iniciar intento";
 		if (stopButton) stopButton.textContent = activity.mode === "compare" ? "Detener y comparar" : activity.mode === "analyze" ? "Detener y finalizar" : "Detener y guardar";
 		if (replayButton) replayButton.textContent = activity.mode === "compare" ? "Ver mi intento" : activity.mode === "analyze" ? "Ver análisis" : "Reproducir referencia";
 		const analyzesUploadedVideo = activity.mode === "analyze" && activity.input.type === "upload";
@@ -1386,15 +1386,16 @@ const compareMotionStages = function compareMotionStages(reference, learner, sta
 		root.dataset.motionRuntimeState = analyzesUploadedVideo ? "awaiting-input" : "idle";
 		status.textContent = activity.mode === "compare" && activity.reference.type === "none" ? "Selecciona una referencia en Movimiento." : analyzesUploadedVideo ? "Selecciona un archivo de video para analizar." : "Listo para comenzar.";
 		const setAnalyzeState = (state) => {
+			if (state === "capturing") video.autoplay = true;
 			if (activity.mode !== "analyze") return;
 			root.dataset.motionRuntimeState = state;
 			if (readyOutput) readyOutput.hidden = state !== "ready";
-			if (state === "idle") button.textContent = "Iniciar captura";
+			if (state === "idle") button.textContent = root.closest(".page-detalle") ? "Grabar mi intento" : "Iniciar captura";
 			if (state === "awaiting-input") button.textContent = "Analizar video";
 			if (state === "preparing") button.textContent = "Preparando…";
 			if (state === "capturing") button.textContent = "Capturando…";
 			if (state === "processing") button.textContent = "Analizando…";
-			if (state === "ready") button.textContent = analyzesUploadedVideo ? "Analizar de nuevo" : "Analizar otra grabación";
+			if (state === "ready") button.textContent = root.closest(".page-detalle") ? "Intentar de nuevo" : analyzesUploadedVideo ? "Analizar de nuevo" : "Analizar otra grabación";
 			if (state === "error") button.textContent = analyzesUploadedVideo ? "Intentar de nuevo" : "Reintentar captura";
 		};
 		let stream;
@@ -2673,12 +2674,20 @@ const compareMotionStages = function compareMotionStages(reference, learner, sta
 					};
 					publishAnalyzeLandmarks(activity, captured.landmarkFrames);
 					setAnalyzeState("ready");
+					if (root.closest(".page-detalle") && learnerRecordingUrl) {
+						video.srcObject = null;
+						video.src = learnerRecordingUrl;
+						video.autoplay = false;
+						video.hidden = false;
+						video.load();
+						video.pause();
+					}
 					if (replayButton) {
-						replayButton.textContent = "Ver análisis";
+						replayButton.textContent = root.closest(".page-detalle") ? "Revisar grabación" : "Ver análisis";
 						replayButton.hidden = false;
 					};
 					const outputId = activity.runtimeOutputId || runtimeHelpers.landmarkFramesOutputId;
-					status.textContent = `${captured.landmarkFrames.length} frames del video analizados y disponibles en “${outputId}”.`;
+					status.textContent = root.closest(".page-detalle") ? "Grabación terminada. Preparando tu comparación…" : `${captured.landmarkFrames.length} frames del video analizados y disponibles en “${outputId}”.`;
 					root.dispatchEvent(new CustomEvent("motion:analysis", {
 						bubbles: true,
 						detail: {

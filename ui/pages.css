@@ -1,0 +1,118 @@
+/* Shared page hierarchy and responsive content. */
+.lsp-page .page-main { min-height:calc(100svh - 92px); padding:28px var(--space-page); overflow-wrap:anywhere; }
+.lsp-page h1 { margin:0 0 8px; font-size:var(--font-size-page-title); line-height:1.2; }
+.lsp-page h2,.lsp-page .section-heading h2 { margin:0 0 8px; font-size:var(--font-size-section-title); line-height:1.3; }
+.lsp-page h3 { font-size:var(--font-size-card-title); }
+.lsp-page .eyebrow { margin:0 0 8px; font-size:var(--font-size-12px); }
+.lsp-page .button { display:inline-flex; align-items:center; justify-content:center; text-align:center; min-height:44px; }
+.lsp-page :is(input,select,textarea) { max-width:100%; min-width:0; }
+.lsp-page :is(.page-hero,.home-welcome,.creator-header,.create-editor-header) { margin-bottom:24px; padding:0; }
+.lsp-page :is(.compact-hero,.page-hero)>p:last-child { margin:0; color:var(--color-text-muted); font-size:var(--font-size-body); }
+.lsp-page .catalog-grid,.lsp-page .teacher-practice-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(min(100%,240px),1fr)); gap:20px; }
+.lsp-page .catalog-card { min-height:0; padding:18px; gap:10px; }
+.lsp-page .catalog-card h2 { margin:4px 0 0; font-size:var(--font-size-card-title); }
+.lsp-page .catalog-card>p { margin:0 0 6px; font-size:var(--font-size-body); }
+.practice-thumbnail { display:block; width:100%; aspect-ratio:16/9; object-fit:contain; background:var(--color-surface); border-radius:10px; color:var(--color-primary); }
+div.practice-thumbnail { display:grid; place-items:center; font-weight:700; }
+.lsp-page .catalog-card .button { width:100%; margin-top:auto; }
+.lsp-page .home-welcome .home-actions { margin:18px 0 0; justify-content:flex-start; }
+.lsp-page .home-panel { max-width:900px; padding:24px; }
+.lsp-page .home-activity,.lsp-page .progress-card { display:flex; align-items:center; gap:18px; flex-wrap:wrap; padding:20px; }
+.lsp-page .progress-card>div:first-child { flex:1; min-width:180px; }
+.lsp-page .progress-card p { margin:6px 0; }
+.lsp-page .progress-card small { color:var(--color-text-muted); }
+.lsp-page .progress-card .attempt-metrics strong { font-size:var(--font-size-24px); }
+.lsp-page .home-activity>.button { margin-left:auto; }
+.lsp-page .teacher-practice-card { min-height:0; display:flex; flex-direction:column; gap:12px; padding:20px; }
+.lsp-page .teacher-practice-card p { margin:0; flex:1; }
+.practice-status { display:flex; gap:8px; flex-wrap:wrap; align-items:center; }
+.practice-status small { color:var(--color-text-muted); }
+.lsp-page .practice-page-main { display:flex; flex-direction:column; gap:20px; }
+.lsp-page .practice-detail-header { margin:0; align-items:center; gap:16px; }
+.lsp-page .practice-detail-header h1 { font-size:var(--font-size-page-title); }
+.lsp-page .practice-pipeline { grid-template-columns:repeat(2,minmax(0,1fr)); gap:20px; align-items:start; }
+.lsp-page .reference-card,.lsp-page .learner-card { padding:20px; min-width:0; }
+.lsp-page .section-heading { margin:0 0 14px; }
+.lsp-page .reference-player,.lsp-page .learner-card .motion-input { aspect-ratio:4/3; width:100%; max-height:none; border-radius:12px; }
+.lsp-page .reference-card video,.lsp-page .reference-card canvas { transform:none; }
+.lsp-page .learner-card .motion-input video,.lsp-page .learner-card .motion-input canvas { transform:scaleX(-1); }
+.lsp-page .learner-card .motion-input video { object-fit:contain; }
+.page-detalle:not(.show-landmarks) [data-motion-overlay],.page-detalle:not(.show-landmarks) [data-reference-overlay] { visibility:hidden; }
+.lsp-page .reference-playback-actions { flex-wrap:wrap; }
+.lsp-page .learner-card .motion-controls { padding:12px 0 0; border:0; background:transparent; display:flex; gap:10px; flex-wrap:wrap; }
+.lsp-page .learner-card .motion-controls>button { min-height:44px; padding:10px 16px; font-size:var(--font-size-button); border-radius:var(--radius-control); }
+.lsp-page .learner-card [data-motion-primary] { background:var(--color-primary); color:var(--color-on-primary); }
+.lsp-page .learner-card [data-motion-status] { flex:0 0 100%; font-size:var(--font-size-14px); color:var(--color-text-muted); }
+.lsp-page .learner-card [data-motion-ready] { display:none!important; }
+.landmark-choice { display:flex; align-items:center; gap:8px; color:var(--color-text-muted); font-size:var(--font-size-14px); margin-top:8px; }
+.landmark-choice input { width:18px; height:18px; min-height:0; accent-color:var(--color-primary); }
+.lsp-page .motion-input__placeholder { padding:16px; }
+.lsp-page .motion-input__placeholder strong { font-size:var(--font-size-card-title); }
+.lsp-page .motion-input__placeholder small { font-size:var(--font-size-14px); }
+.lsp-page .pipeline-status { padding:12px 16px; font-size:var(--font-size-14px); }
+.lsp-page .score-section { padding:20px; border:1px solid var(--color-border); border-radius:var(--radius-card); box-shadow:none; }
+.lsp-page .score-card-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+.lsp-page .score-card-grid [data-builder-variable-display] { padding:14px; min-width:0; }
+.lsp-page .save-attempt-card { padding:20px; }
+.lsp-page .practice-details-fields { max-width:720px; }
+.lsp-page .practice-wizard { max-width:1100px; }
+.lsp-page .practice-step-details .practice-details-fields { width:100%; }
+.lsp-page .practice-details-fields input,.lsp-page .practice-details-fields select { min-height:44px; }
+.lsp-page .practice-step-reference { min-width:0; }
+.lsp-page .reference-options-bar { flex-wrap:wrap; gap:12px; }
+.lsp-page .reference-source-choice { flex-wrap:wrap; }
+.lsp-page .reference-source-choice button { min-height:44px; }
+.advanced-options { margin-top:16px; border:1px solid var(--color-border); border-radius:12px; padding:12px; }
+.advanced-options summary { cursor:pointer; font-weight:600; min-height:32px; }
+.lsp-page .role-choice { gap:10px; }
+.lsp-page .role-choice label { min-height:66px; padding:12px; }
+.lsp-page .role-choice small { font-size:var(--font-size-12px); }
+.lsp-page .access-status { font-size:var(--font-size-14px); }
+@media(min-width:1500px) { .lsp-page .page-main { max-width:1440px; margin-inline:auto; } }
+@media(max-width:1100px) { .lsp-page .page-main { padding:24px; } .lsp-page .practice-pipeline { gap:16px; } .lsp-page .reference-card,.lsp-page .learner-card { padding:16px; } }
+@media(max-width:900px) { .lsp-page .practice-pipeline { grid-template-columns:1fr; } .lsp-page .reference-player,.lsp-page .learner-card .motion-input { max-height:420px; } .lsp-page .practice-detail-header { align-items:flex-start; } }
+@media(max-width:760px) {
+ .lsp-page .page-main { padding:20px 16px; min-height:calc(100svh - 88px); }
+ .lsp-page .practice-detail-header,.lsp-page .creator-header,.lsp-page .save-attempt-card { flex-direction:column; align-items:stretch; }
+ .lsp-page .practice-detail-header .button { align-self:flex-start; }
+ .lsp-page .catalog-grid,.lsp-page .teacher-practice-grid { grid-template-columns:1fr; }
+ .lsp-page .score-card-grid { grid-template-columns:1fr; }
+ .lsp-page .progress-card { align-items:flex-start; }
+ .lsp-page .progress-card>.button,.lsp-page .home-activity>.button { width:100%; margin:0; }
+ .lsp-page .two-fields,.lsp-page .auth-forms { grid-template-columns:1fr; }
+ .lsp-page .motion-stage-inspector { grid-template-columns:1fr 1fr; }
+ .lsp-page .reference-playback-actions { flex-direction:column; align-items:stretch; }
+ .lsp-page .motion-controls>button { flex:1 1 140px; }
+ .lsp-page .role-choice { grid-template-columns:1fr; }
+ .lsp-page .access-layout { width:100%; }
+ .lsp-page.access-page { padding:20px 14px; }
+}
+.lsp-page .required-badge,.lsp-page .pill { white-space:nowrap; flex-shrink:0; }
+.lsp-page .practice-step-title { flex-wrap:wrap; gap:8px; }
+.lsp-page .practice-step-title h2 { margin:0; }
+.lsp-page .motion-stage-editor__heading { flex-wrap:wrap; gap:10px; }
+.lsp-page .create-save-bar,.lsp-page .create-form-actions { flex-wrap:wrap; gap:12px; }
+@media(max-width:760px) {
+ .lsp-page .create-save-bar>button,.lsp-page .create-form-actions>button { flex:1 1 130px; min-height:44px; }
+ .lsp-page .practice-step-title .required-badge { font-size:var(--font-size-12px); padding:5px 10px; }
+}
+
+.save-attempt-card.awaiting-comparison { display: none !important; }
+
+.lsp-page .attempt-metrics strong { white-space: nowrap; }
+.lsp-page .practice-details-fields { background: transparent; }
+.lsp-page .practice-step-details .practice-step-actions { max-width:720px; }
+
+/* Sections share the main surface; only independent records remain cards. */
+.lsp-page :is(.reference-card,.learner-card,.home-panel,.score-section,.save-attempt-card,.advanced-options) {
+ background:transparent; border:0; border-radius:0; box-shadow:none; padding:0;
+}
+.lsp-page .learner-card .motion-activity { background:transparent; }
+.lsp-page .practice-pipeline { gap:28px; }
+.lsp-page .pipeline-status { background:transparent; border:0; border-radius:0; padding:0; }
+.lsp-page .score-section,.lsp-page .save-attempt-card { border-top:1px solid var(--color-border); padding-top:24px; }
+.lsp-page .score-card-grid [data-builder-variable-display] { background:transparent; border:0; border-radius:0; box-shadow:none; padding:12px 0; }
+.lsp-page .home-panel { margin-top:32px; }
+.lsp-page .home-activity { background:transparent; border-radius:0; padding:18px 0; border-top:1px solid var(--color-border); }
+.lsp-page .advanced-options { border-top:1px solid var(--color-border); padding-top:16px; }
+@media(max-width:900px) { .lsp-page .practice-pipeline { gap:32px; } }

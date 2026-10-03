@@ -554,6 +554,7 @@
 						repeatedRecordValues.set(clone, record);
 						await applyRecordToRoot(clone, repeater.itemContext, record);
 						anchor.parentNode?.insertBefore(clone, anchor);
+						clone.dispatchEvent(new CustomEvent("lsp:record-rendered", { bubbles: true, detail: { record, sourceId: repeater.dataSourceId, mediaUrl: runtimeConfig.currentPage === "catalogo" && typeof record.media_url === "string" ? await resolvedBindingMediaUrl({ dataSourceId: repeater.dataSourceId }, record.media_url).catch(() => undefined) : undefined } }));
 					}
 				};
 				if (usesPagination) {
